@@ -1,0 +1,45 @@
+﻿@model GimnazijaKM.Models.MatematickiSmer
+
+@{
+    ViewBag.Title = "Измени податке";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 class="text-center">Измени Математички Смер</h2>
+
+@using (Html.BeginForm("AzurirajMatematickiSmer", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        <label>Слика 1</label><br />
+        <img src="@Model.Slika1" width="100" /><br />
+        <input type="file" name="slika1" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Слика 2</label><br />
+        <img src="@Model.Slika2" width="100" /><br />
+        <input type="file" name="slika2" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Слика 3</label><br />
+        <img src="@Model.Slika3" width="100" /><br />
+        <input type="file" name="slika3" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Слика 4</label><br />
+        <img src="@Model.Slika4" width="100" /><br />
+        <input type="file" name="slika4" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Опис</label>
+        @Html.TextAreaFor(m => m.Opis, new { @class = "form-control", rows = 4 })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сачувај измене</button>
+    <a href="@Url.Action("DodajMatematickiSmer", "Home")" class="btn btn-secondary">Назад</a>
+}

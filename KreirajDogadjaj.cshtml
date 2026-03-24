@@ -1,0 +1,89 @@
+﻿@model GimnazijaKM.Models.EventViewModel
+
+@{
+    ViewBag.Title = "Create Events";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+
+<h2>Kreiraj dolazece dogadjaje!</h2>
+
+@using (Html.BeginForm("KreirajDogadjaj", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NoviDogadjaj.Ime)
+        @Html.TextBoxFor(model => model.NoviDogadjaj.Ime, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NoviDogadjaj.Datum)
+        @Html.TextBoxFor(model => model.NoviDogadjaj.Datum, new { @class = "form-control", placeholder = "unesi datum dogadjaja" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NoviDogadjaj.Opis)
+        @Html.TextAreaFor(model => model.NoviDogadjaj.Opis, new { @class = "form-control", rows = 3 })
+    </div>
+
+    <div class="form-group">
+        <label>Upload Slika</label>
+        <input type="file" name="SlikaUpload" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Event</button>
+}
+
+<hr />
+
+<h3>Vidi Predstojeci Dogadjaj</h3>
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Ime</th>
+            <th>Datum</th>
+            <th>Opis</th>
+            <th>Slika</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SviDogadjaji)
+        {
+            <tr>
+                <td>@item.Ime</td>
+                <td>@item.Datum</td>
+                <td>@item.Opis</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Slika))
+                    {
+                        <img src="@Url.Content("~/Content/slike/" + item.Slika)" class="img-fluid" style="max-width: 100px; border-radius: 5px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No image</span>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        @Html.ActionLink("Edit", "AzurirajDogadjaj", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                        <span>|</span>
+                        @Html.ActionLink("Delete", "IzbrisiDogadjaj", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .btn-group span {
+        padding: 0 10px;
+        color: #6c757d;
+    }
+</style>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GimnazijaKM.Models.Slider>
+
+@{
+    ViewBag.Title = "Додај и Прегледај Слајдер";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 class="mb-4">Додај Слике у Слајдер</h2>
+
+@using (Html.BeginForm("DodajSlider", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <label>Слика 1:</label>
+            <input type="file" name="slika1" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Слика 2:</label>
+            <input type="file" name="slika2" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Слика 3:</label>
+            <input type="file" name="slika3" class="form-control" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Сачувај</button>
+}
+
+<hr class="my-4" />
+
+<h3>Све Слике у Слајдеру</h3>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Слика 1</th>
+            <th>Слика 2</th>
+            <th>Слика 3</th>
+            <th>Акције</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@item.Slika1" width="150" class="img-thumbnail" /></td>
+                <td><img src="@item.Slika2" width="150" class="img-thumbnail" /></td>
+                <td><img src="@item.Slika3" width="150" class="img-thumbnail" /></td>
+                <td>
+                    <a href="@Url.Action("AzuriranjeSlider", "Home", new { id = item.SliderID })" class="btn btn-warning btn-sm">Ажурирај</a>
+                    <a href="@Url.Action("BrisiSlider", "Home", new { id = item.SliderID })" class="btn btn-danger btn-sm" onclick="return confirm('Да ли сте сигурни да желите да обришете?');">Обриши</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

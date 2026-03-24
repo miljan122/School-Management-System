@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "IT Smer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!-- Glavni stilovi i dizajn -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fortawesome/fontawesome-free/css/all.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
+
+<!-- Sekcija Disklejmera -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="/Content/slike/image2 (1).jpeg" class="img-fluid rounded" alt="Disklejmer slika" />
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Зашто уписати IT смер?</h2>
+                <p class="lead">@ViewBag.ITSmerOpis</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projekti" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Пројекти ученика</h2>
+        <div class="row g-4">
+            @foreach (var projekat in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <a href="@Url.Content(projekat.SlikaGlavna)" class="glightbox" data-gallery="galerija-@projekat.Id" data-title="@projekat.Naslov">
+                            <img src="@Url.Content(projekat.SlikaGlavna)" class="card-img-top" alt="@projekat.Naslov" />
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">@projekat.Naslov</h5>
+                            <p class="card-text">@projekat.Opis</p>
+                        </div>
+                    </div>
+                    @foreach (var slika in projekat.OstaleSlike)
+                    {
+                        <a href="@Url.Content(slika)" class="glightbox d-none" data-gallery="galerija-@projekat.Id" data-title="@projekat.Naslov"></a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+<section id="naucicesve" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 display-4 fw-bold text-primary">Šta ćeš naučiti tokom školovanja?</h2>
+        <div class="row text-center g-4">
+
+            <!-- I godina -->
+            <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="card shadow rounded h-100 border-0 hover-shadow" style="transition: transform 0.3s ease;">
+                    <div class="card-body bg-info text-white p-4">
+                        <i class="fas fa-laptop-code fa-4x mb-3"></i>
+                        <h5 class="card-title display-6 fw-bold">I godina</h5>
+                        <p class="card-text">Osnove informatike, Word, Excel, HTML & CSS.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span><i class="bi bi-file-earmark-code fs-2"></i> Osnove IT-a</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- II godina -->
+            <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="card shadow rounded h-100 border-0 hover-shadow" style="transition: transform 0.3s ease;">
+                    <div class="card-body bg-success text-white p-4">
+                        <i class="fas fa-cogs fa-4x mb-3"></i>
+                        <h5 class="card-title display-6 fw-bold">II godina</h5>
+                        <p class="card-text">Programiranje u C#, baze podataka, algoritmi.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span><i class="bi bi-code-slash fs-2"></i> Razvoj aplikacija</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- III godina -->
+            <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="card shadow rounded h-100 border-0 hover-shadow" style="transition: transform 0.3s ease;">
+                    <div class="card-body bg-warning text-white p-4">
+                        <i class="fas fa-browser fa-4x mb-3"></i>
+                        <h5 class="card-title display-6 fw-bold">III godina</h5>
+                        <p class="card-text">Web aplikacije, JavaScript, dizajn, timski projekti.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span><i class="bi bi-laptop fs-2"></i> Web razvoj</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IV godina -->
+            <div class="col-md-3 mb-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="card shadow rounded h-100 border-0 hover-shadow" style="transition: transform 0.3s ease;">
+                    <div class="card-body bg-danger text-white p-4">
+                        <i class="fas fa-briefcase fa-4x mb-3"></i>
+                        <h5 class="card-title display-6 fw-bold">IV godina</h5>
+                        <p class="card-text">Praksa, završni rad, saradnja sa IT firmama.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span><i class="bi bi-briefcase fs-2"></i> Praktično iskustvo</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- JS Scripts for Bootstrap functionality -->
+<script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+<!-- Glightbox JS -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+    const lightbox = GLightbox({
+        selector: '.glightbox'
+    });
+</script>

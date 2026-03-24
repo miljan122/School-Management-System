@@ -1,0 +1,73 @@
+﻿@model List<GimnazijaKM.Models.Maturanti>
+
+@{
+    ViewBag.Title = "Dodaj Maturante";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Dodaj Maturanta</h2>
+
+@using (Html.BeginForm("DodajMaturante", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label>Generacija</label>
+        <input type="text" name="Generacija" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Opis:</label>
+        <textarea name="Opis" class="form-control" required rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Slika:</label>
+        <input type="file" name="slika" class="form-control" />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+}
+
+<hr />
+
+<h3>Spisak Maturanata</h3>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Generacija</th>
+                <th>Opis</th>
+                <th>Slika</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Generacija</td>
+                    <td>@item.Opis</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.SlikaPath))
+                        {
+                            <img src="@Url.Content(item.SlikaPath)" alt="Slika" style="max-width: 50px;" />
+                        }
+                        else
+                        {
+                            <span>Nema slike</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("AzurirajMaturante", "Home", new { id = item.MaturantID })" class="btn btn-sm btn-warning">Izmeni</a>
+                        <a href="@Url.Action("IzbrisiMaturante", "Home", new { id = item.MaturantID })" class="btn btn-sm btn-danger">Obriši</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nema unetih maturanata.</p>
+}

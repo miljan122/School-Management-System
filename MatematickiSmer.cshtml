@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Природно-математички смер";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .fixed-img {
+        width: 100%;
+        height: 200px; /* или више/мање по жељи */
+        object-fit: cover;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>
+
+<!-- Насловна секција без позадине -->
+<section class="py-5 bg-white text-center">
+    <div class="container">
+        <h1 class="display-5 fw-bold text-primary">Природно-математички смер</h1>
+        <p class="lead text-secondary">За љубитеље науке, логике, формула и открића!</p>
+    </div>
+</section>
+
+<!-- Садржајна секција -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <!-- Текст -->
+            <div class="col-lg-7">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <h2 class="mb-4 text-primary">О смеру</h2>
+                    <p class="fs-5 text-secondary">
+                        @Html.Raw(Model?.Opis ?? "Опис није доступан.")
+                    </p>
+                </div>
+            </div>
+
+            <!-- Слике -->
+            <div class="col-lg-5">
+                <div class="row g-3">
+                    @if (Model != null)
+                    {
+                        <div class="col-6">
+                            <img src="@Model.Slika1" alt="Слика 1" class="fixed-img img-fluid rounded shadow-sm" />
+                        </div>
+                        <div class="col-6">
+                            <img src="@Model.Slika2" alt="Слика 2" class="fixed-img img-fluid rounded shadow-sm" />
+                        </div>
+                        <div class="col-6">
+                            <img src="@Model.Slika3" alt="Слика 3" class="fixed-img img-fluid rounded shadow-sm" />
+                        </div>
+                        <div class="col-6">
+                            <img src="@Model.Slika4" alt="Слика 4" class="fixed-img img-fluid rounded shadow-sm" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

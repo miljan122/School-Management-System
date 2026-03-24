@@ -1,0 +1,71 @@
+﻿@model List<GimnazijaKM.Models.Rasporedi>
+
+@{
+    ViewBag.Title = "Pogledaj Raspored";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center my-5 fw-bold display-4">Распореди</h2>
+
+<div class="container">
+    <div class="row gy-5">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 mb-5 pb-4 border-bottom">
+                <h3 class="text-center text-primary fw-semibold mb-4">@item.Naslov</h3>
+
+                <div class="row g-5 justify-content-center align-items-center text-center">
+                    @if (!string.IsNullOrEmpty(item.Slika1))
+                    {
+                        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+                            <img src="@Url.Content("~" + item.Slika1)"
+                                 class="rounded-4 shadow img-fluid img-clickable"
+                                 style="width: 100%; max-width: 900px; height: 650px; object-fit: cover; cursor: pointer;"
+                                 data-bs-toggle="modal" data-bs-target="#imageModal"
+                                 data-img-src="@Url.Content("~" + item.Slika1)"
+                                 alt="Slika 1" />
+                            <p class="mt-3 fw-semibold fs-5 text-dark">Прва смена</p>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(item.Slika2))
+                    {
+                        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+                            <img src="@Url.Content("~" + item.Slika2)"
+                                 class="rounded-4 shadow img-fluid img-clickable"
+                                 style="width: 100%; max-width: 900px; height: 650px; object-fit: cover; cursor: pointer;"
+                                 data-bs-toggle="modal" data-bs-target="#imageModal"
+                                 data-img-src="@Url.Content("~" + item.Slika2)"
+                                 alt="Slika 2" />
+                            <p class="mt-3 fw-semibold fs-5 text-dark">Друга смена</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal za fullscreen prikaz slike -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content bg-dark">
+            <div class="modal-body p-0 d-flex justify-content-center align-items-center">
+                <img id="modalImage" src="" class="w-100 h-100" style="object-fit: contain;" />
+            </div>
+            <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Fullscreen prikaz slike
+        document.querySelectorAll('.img-clickable').forEach(function (img) {
+            img.addEventListener('click', function () {
+                var src = this.getAttribute('data-img-src');
+                document.getElementById('modalImage').src = src;
+            });
+        });
+    </script>
+}

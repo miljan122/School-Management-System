@@ -1,0 +1,53 @@
+﻿@model List<GimnazijaKM.Models.Rasporedi>
+
+@{
+    ViewBag.Title = "Избриши распоред";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Избриши распоред</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<table class="table table-bordered table-striped mt-3">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Наслов</th>
+            <th>Прва слика</th>
+            <th>Друга слика</th>
+            <th>Акције</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Naslov</td>
+                <td>
+                    <img src="@Url.Content("~" + item.Slika1)" style="width:150px; height:150px; object-fit: cover;" class="img-thumbnail" />
+                </td>
+                <td>
+                    <img src="@Url.Content("~" + item.Slika2)" style="width:150px; height:150px; object-fit: cover;" class="img-thumbnail" />
+                </td>
+                <td>
+                    @* Link za izmenu, ako ti treba *@
+                    <a href="@Url.Action("IzmeniRaspored", "Home", new { id = item.ID })" class="btn btn-sm btn-warning mb-1">Измени</a>
+
+                    @using (Html.BeginForm("IzbrisiRaspored", "Home", FormMethod.Post, new { onsubmit = "return confirm('Да ли сте сигурни да желите да избришете овај распоред?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.ID)
+                        <button type="submit" class="btn btn-sm btn-danger">Обриши</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

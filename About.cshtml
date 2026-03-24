@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "О нама";
+}
+
+<h1 id="title" class="display-4" style="font-family:'Bookman Old Style'; color: #0e1980; text-shadow: 2px 2px 2px rgba(255, 170, 0, 0.8);">
+    @ViewBag.Title
+</h1>
+
+
+
+<main aria-labelledby="title" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+
+            <p class="lead" style="color: #555;">Добродошли у нашу школу - место знања, традиције и успеха!</p>
+        </div>
+
+        <div class="row align-items-center">
+            <!-- Slika škole -->
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="/Content/slike/DSC_3779.jpg" alt="Наша школа" class="img-fluid rounded shadow">
+
+
+            </div>
+
+            <!-- Tekst o školi -->
+            <div class="col-md-6">
+                <h2 style="color: #ffaa00; font-family:'Bookman Old Style'; text-shadow: 3px 3px 6px rgba(0, 0, 50, 0.8);">О нашој школи</h2>
+                <p style="font-size: 1.1rem; color: #444; text-align: justify;">
+                    Гимназија Косовска Митровица је образовна институција са богатом традицијом и посвећеним радом.
+                    Наша мисија је да пружимо квалитетно образовање, развијамо критичко мишљење, креативност
+                    и припремимо ученике за успех на даљим академским и животним путевима.
+                </p>
+                <p style="font-size: 1.1rem; color: #444; text-align: justify;">
+                    Са савременим наставним програмима, искусним професорима и активним ваннаставним активностима,
+                    нашим ученицима пружамо могућности да развију свој пуни потенцијал.
+                </p>
+                <a href="@Url.Action("Contact", "Home")" class="btn btn-warning mt-3" style="font-weight: 700;">Контактирајте нас</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 style="font-family: 'Bookman Old Style'; color: #0e1980; text-shadow: 2px 2px 2px rgba(255, 170, 0, 0.8);">Зашто изабрати нас?</h2>
+            <p class="lead" style="color: #555;">Пружамо више од образовања – градимо будућност!</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Kartica 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-mortarboard" style="font-size: 2.5rem; color: #ffaa00;"></i>
+                        <h5 class="card-title mt-3" style="color: #0e1980;">Квалитетно образовање</h5>
+                        <p class="card-text" style="color: #555;">Програми прилагођени савременим стандардима и потребама тржишта.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kartica 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-people" style="font-size: 2.5rem; color: #ffaa00;"></i>
+                        <h5 class="card-title mt-3" style="color: #0e1980;">Искуствени професори</h5>
+                        <p class="card-text" style="color: #555;">Наш тим чине посвећени и стручни наставници са дугогодишњим искуством.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kartica 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-globe" style="font-size: 2.5rem; color: #ffaa00;"></i>
+                        <h5 class="card-title mt-3" style="color: #0e1980;">Међународни успех</h5>
+                        <p class="card-text" style="color: #555;">Наши ученици остварују запажене резултате на домаћим и странним такмичењима.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kartica 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-stars" style="font-size: 2.5rem; color: #ffaa00;"></i>
+                        <h5 class="card-title mt-3" style="color: #0e1980;">Модерна опрема</h5>
+                        <p class="card-text" style="color: #555;">Савремене лабораторије, библиотеке и учионице за комплетно искуство учења.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

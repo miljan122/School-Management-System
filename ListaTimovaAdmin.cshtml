@@ -1,0 +1,78 @@
+﻿@model List<GimnazijaKM.Models.Tim>
+
+@{
+    ViewBag.Title = "Админ – Тимови";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<script>
+    // Doda token u sve AJAX pozive, ako ih budeš koristio kasnije
+    $.ajaxSetup({
+        headers: {
+            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+        }
+    });
+</script>
+
+
+<h2 class="mb-4">Тимови – Админ</h2>
+
+<table class="table table-bordered table-striped shadow-sm">
+    <thead class="table-light">
+        <tr>
+            <th>Назив</th>
+            <th>Чланови</th>
+            <th>Акције</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tim in Model)
+        {
+            <tr>
+                <td class="align-middle">@tim.Naziv</td>
+
+                <td>
+                    <ul class="list-unstyled">
+                        @foreach (var clan in tim.Clans.OrderBy(c => c.RedniBroj))
+                        {
+                            <li class="d-flex justify-content-between align-items-center mb-1 border-bottom pb-1">
+                                <span>@clan.RedniBroj. @clan.Ime</span>
+
+                                <!-- Brisanje člana -->
+                                @using (Html.BeginForm("ObrisiClana", "Home", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", clan.ClanId)
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Да ли сте сигурни да желите да обришете члана?');">
+                                        Избриши
+                                    </button>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </td>
+
+                <td class="text-center align-middle">
+                    <!-- Dodavanje člana -->
+                    <a href="@Url.Action("UbaciClana", "Home", new { timId = tim.TimId })"
+                       class="btn btn-sm btn-outline-success mb-2 w-100">
+                        ➕ Додај члана
+                    </a>
+
+                    <!-- Brisanje tima -->
+                    @using (Html.BeginForm("ObrisiTim", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", tim.TimId)
+                        <button type="submit" class="btn btn-sm btn-outline-danger w-100"
+                                onclick="return confirm('Да ли сте сигурни да желите да обришете цео тим и све његове чланове?');">
+                            🗑️ Избриши тим
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

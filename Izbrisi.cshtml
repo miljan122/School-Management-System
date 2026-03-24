@@ -1,0 +1,22 @@
+﻿@model GimnazijaKM.Models.Vesti
+
+@{
+    ViewBag.Title = "Obriši Vest";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Da li ste sigurni da želite da obrišete ovu vest?</h2>
+
+<div>
+    <h4>@Model.Naslov</h4>
+    <p>@Model.KratakOpis</p>
+
+    @using (Html.BeginForm("Izbrisi", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id) <!-- Sakrivanje ID-a je važno! -->
+
+        <button type="submit" class="btn btn-danger">Obriši</button>
+        @Html.ActionLink("Otkaži", "KreirajVest", null, new { @class = "btn btn-secondary" })
+    }
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d7a963678d7f451d84bd39efd3a4cc67" Name="Diagram1">
+        <EntityTypeShape EntityType="GimnazijaDBModel.tbl_Admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Vesti" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Dogadjaji" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Fajlovi" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.ContactMessage" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Rasporedi" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Clan" Width="1.5" PointX="5.625" PointY="6.875" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Tim" Width="1.5" PointX="3.375" PointY="7" />
+        <AssociationConnector Association="GimnazijaDBModel.FK__Clan__TimId__2B0A656D" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Maturanti" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.JavneNabavke" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Letopi" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Ekskurzije" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Projekti" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.JezickiSmer" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.MatematickiSmer" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="GimnazijaDBModel.Slider" Width="1.5" PointX="7.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

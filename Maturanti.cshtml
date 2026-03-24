@@ -1,0 +1,86 @@
+﻿@model List<GimnazijaKM.Models.Maturanti>
+
+@{
+    ViewBag.Title = "Матуранти";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center mb-4" style="color: #0e1980;">Матуранти - Генерације</h2>
+
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@Url.Content(item.SlikaPath)"
+                         class="card-img-top img-thumbnail img-clickable"
+                         alt="Слика генерације"
+                         style="height: 250px; object-fit: cover; cursor: pointer;"
+                         data-bs-toggle="modal"
+                         data-bs-target="#imageModal"
+                         data-img="@Url.Content(item.SlikaPath)" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Generacija</h5>
+                        <p class="card-text">@item.Opis</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- PAGINACIJA -->
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Maturanti", new { page = ViewBag.CurrentPage - 1 })">Prethodna</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Maturanti", new { page = i })">@i</a>
+            </li>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Maturanti", new { page = ViewBag.CurrentPage + 1 })">Sledeća</a>
+            </li>
+        }
+    </ul>
+</nav>
+
+<!-- FULLSCREEN MODAL ZA SLIKU -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content bg-dark">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <img id="modalImage" src="" class="img-fluid rounded shadow" style="max-height: 90vh;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT ZA MODAL SLIKU -->
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var imageModal = document.getElementById('imageModal');
+            imageModal.addEventListener('show.bs.modal', function (event) {
+                var triggerImg = event.relatedTarget;
+                var imgSrc = triggerImg.getAttribute('data-img');
+                var modalImg = document.getElementById('modalImage');
+                modalImg.src = imgSrc;
+            });
+        });
+    </script>
+}

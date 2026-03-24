@@ -1,0 +1,18 @@
+﻿@model GimnazijaKM.Models.Fajlovi
+
+@{
+    ViewBag.Title = "Izbriši fajl";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Izbriši fajl</h2>
+
+<div class="alert alert-warning">
+    Da li ste sigurni da želite da obrišete fajl: <strong>@Model.Naziv</strong>?
+</div>
+
+<form method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Izbriši</button>
+    <a href="@Url.Action("DodajFajl", "Home")" class="btn btn-secondary">Otkaži</a>
+</form>

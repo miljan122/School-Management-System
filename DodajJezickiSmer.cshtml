@@ -1,0 +1,88 @@
+﻿@model List<GimnazijaKM.Models.JezickiSmer>
+@{
+    ViewBag.Title = "Додај Језички Смер";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Додај Језички Смер</h2>
+
+    @using (Html.BeginForm("DodajJezickiSmer", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>Слика 1</label>
+                <input type="file" name="Slika1" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Слика 2</label>
+                <input type="file" name="Slika2" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Слика 3</label>
+                <input type="file" name="Slika3" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>Слика 4</label>
+                <input type="file" name="Slika4" class="form-control" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Опис</label>
+            <textarea name="Opis" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Сачувај</button>
+    }
+
+    <hr />
+
+    <h3 class="mt-5">Сви Језички Смeрови</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Слика 1</th>
+                <th>Слика 2</th>
+                <th>Слика 3</th>
+                <th>Слика 4</th>
+                <th>Опис</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika1))
+                        {
+                            <img src="@Url.Content(item.Slika1)" width="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika2))
+                        {
+                            <img src="@Url.Content(item.Slika2)" width="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika3))
+                        {
+                            <img src="@Url.Content(item.Slika3)" width="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika4))
+                        {
+                            <img src="@Url.Content(item.Slika4)" width="100" />
+                        }
+                    </td>
+                    <td>@item.Opis</td>
+                    <td>
+                        <a href="@Url.Action("AzuriranjeJsmera", "Home", new { id = item.Id })" class="btn btn-warning btn-sm">Измени</a>
+                        <a href="@Url.Action("BrisanjeJsmera", "Home", new { id = item.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Да ли сте сигурни да желите да обришете овај смер?');">Обриши</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

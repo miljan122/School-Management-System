@@ -1,0 +1,36 @@
+﻿@model List<GimnazijaKM.Models.Tim>
+
+@{
+    ViewBag.Title = "Timovi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Тимови и стручни активи</h1>
+        <p class="lead">Састав тимова и стручних актива за школску 2024/25. годину</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var tim in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header text-white @(tim.BojaKartice ?? "bg-primary")">
+                        @tim.Naziv
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            @foreach (var clan in tim.Clans.OrderBy(c => c.RedniBroj))
+                            {
+                                <li>@clan.RedniBroj. @clan.Ime</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

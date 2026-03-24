@@ -1,0 +1,13 @@
+﻿@model List<GimnazijaKM.Models.Letopi>
+
+@foreach (var item in Model)
+{
+    <li>
+        @Html.ActionLink(
+            item.Naslov,
+            "DetaljiLetopisa",
+            "Home",
+            new { id = item.Id },
+            new { @class = "dropdown-item", style = "color: #ffaa00; font-weight: 500;" })
+    </li>
+}

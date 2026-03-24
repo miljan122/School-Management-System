@@ -1,0 +1,127 @@
+﻿@model GimnazijaKM.Models.FajlFormaViewModel
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Dokumenti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .table-section {
+        padding: 60px 15px 120px; /* dodat donji razmak za footer */
+    }
+
+    .custom-table thead th {
+        background-color: #0d6efd;
+        color: white;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .custom-table tbody td {
+        vertical-align: middle;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background-color: #0d6efd;
+        border-radius: 4px;
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination li {
+        display: inline-block;
+        margin: 0 3px;
+    }
+
+        .pagination li a,
+        .pagination li span {
+            color: #0d6efd;
+            border: 1px solid #dee2e6;
+            padding: 6px 12px;
+            border-radius: 0.25rem;
+            text-decoration: none;
+        }
+
+        .pagination li.active span {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+        .pagination li.disabled span {
+            color: #6c757d;
+        }
+</style>
+
+<div class="container-fluid table-section">
+    <h2 class="text-center mb-4">
+        <i class="bi bi-folder2-open"></i> Dokumenti škole
+    </h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover custom-table">
+            <thead>
+                <tr>
+                    <th><i class="bi bi-file-earmark-text"></i> Naziv</th>
+                    <th><i class="bi bi-filetype-doc"></i> Tip</th>
+                    <th><i class="bi bi-calendar-event"></i> Datum</th>
+                    <th><i class="bi bi-download"></i> Preuzmi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fajl in Model.PagedFajlovi)
+                {
+                    <tr>
+                        <td>@fajl.Naziv</td>
+                        <td>@fajl.Tip</td>
+                        <td>@fajl.Datum.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            <a href="@Url.Content(fajl.Putanja)" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-download"></i> Preuzmi
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-container mt-4">
+        @Html.PagedListPager(Model.PagedFajlovi, page => Url.Action("Dokumenta", new { page }),
+            new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                DisplayLinkToIndividualPages = true,
+                DisplayPageCountAndCurrentLocation = false,
+                MaximumPageNumbersToDisplay = 5,
+                DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                LinkToFirstPageFormat = "«",
+                LinkToPreviousPageFormat = "‹",
+                LinkToNextPageFormat = "›",
+                LinkToLastPageFormat = "»",
+                ContainerDivClasses = new[] { "pagination-container" },
+                UlElementClasses = new[] { "pagination" }
+            })
+    </div>
+</div>

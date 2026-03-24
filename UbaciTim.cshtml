@@ -1,0 +1,49 @@
+﻿@model GimnazijaKM.Models.Tim
+
+@{
+    ViewBag.Title = "Dodaj Tim";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Додај нови тим</h2>
+
+    @using (Html.BeginForm("UbaciTim", "Home", FormMethod.Post, new { @class = "mt-4" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            @Html.LabelFor(model => model.Naziv, "Назив тима")
+            @Html.TextBoxFor(model => model.Naziv, new { @class = "form-control", placeholder = "Унеси назив тима" })
+            @Html.ValidationMessageFor(model => model.Naziv)
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(model => model.BojaKartice, "Боја Bootstrap картице (нпр: bg-primary, bg-success...)")
+            @Html.TextBoxFor(model => model.BojaKartice, new { @class = "form-control", placeholder = "Пример: bg-success" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сачувај тим</button>
+    }
+
+    <hr />
+
+    <h4 class="mt-5">Преглед доступних боја</h4>
+    <p>Изабери једну од следећих боја и копирај назив у поље: <code>bg-...</code></p>
+
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mt-3">
+        @{
+            var boje = new[] {
+                "primary", "secondary", "success", "danger", "warning", "info", "light", "dark"
+            };
+        }
+        @foreach (var boja in boje)
+        {
+            <div class="col">
+                <div class="p-3 text-white text-center rounded shadow-sm @("bg-" + boja)">
+                    bg-@boja
+                </div>
+            </div>
+        }
+    </div>
+</div>

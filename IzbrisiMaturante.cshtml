@@ -1,0 +1,28 @@
+﻿@model GimnazijaKM.Models.Maturanti
+
+@{
+    ViewBag.Title = "Izbriši Maturanta";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Izbriši Maturanta</h2>
+
+<div>
+    <h4>@Model.Generacija</h4>
+    <p>@Model.Opis</p>
+    @if (!string.IsNullOrEmpty(Model.SlikaPath))
+    {
+        <img src="@Url.Content(Model.SlikaPath)" alt="Slika" style="max-width: 200px;" />
+    }
+</div>
+
+<p>Da li ste sigurni da želite da obrišete ovog maturanta?</p>
+
+@using (Html.BeginForm("IzbrisiMaturante", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.MaturantID)
+
+    <button type="submit" class="btn btn-danger">Obriši</button>
+    @Html.ActionLink("Odustani", "DodajMaturante", "Home", null, new { @class = "btn btn-secondary" })
+}

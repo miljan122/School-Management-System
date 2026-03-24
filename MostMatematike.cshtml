@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Успеси ученика";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+
+    <!-- Категорије као навигација -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Матуранти</h5>
+                    <p class="card-text">Погледајте генерације наших матураната и њихове успехе.</p>
+                    <a href="@Url.Action("Maturanti", "Home")" class="btn btn-primary">Погледај</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Екскурзије</h5>
+                    <p class="card-text">Галерије са путовања и екскурзија наших ученика.</p>
+                    <a href="@Url.Action("Ekskurzija", "Home")" class="btn btn-primary">Погледај</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm h-100 bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Успеси ученика</h5>
+                    <p class="card-text">Тренутно гледате</p>
+                    <a href="#" class="btn btn-light disabled">Тренутно гледате</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Наслов и опис успеха -->
+    <div class="text-center mb-5">
+        <h1 class="mb-3">На такмичењу “Мост математике” наши гимназијалци освојили су прво место</h1>
+        <p>Састав екипе је био: Јелена Јаковљевић (први разред), Дамњан Илић (други разред), Андрија Ристић (трећи разред) и Младен Арсенијевић (четврти разред). Екипу је предводила професорица Маја Степановић.</p>
+        <p>Честитамо на изванредном успеху!</p>
+    </div>
+
+    <!-- Приказ ученика -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="/Content/slike/jelena_jakovljevic.jpg" class="card-img-top" style="height:250px; object-fit:cover;" alt="Јелена Јаковљевић">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Јелена Јаковљевић</h5>
+                    <p class="text-muted">Први разред</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="/Content/slike/damjan_ilic.jpg" class="card-img-top" style="height:250px; object-fit:cover;" alt="Дамњан Илић">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Дамњан Илић</h5>
+                    <p class="text-muted">Други разред</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="/Content/slike/andrija_ristic.jpg" class="card-img-top" style="height:250px; object-fit:cover;" alt="Андрија Ристић">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Андрија Ристић</h5>
+                    <p class="text-muted">Трећи разред</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="/Content/slike/mladen_arsenijevic.jpg" class="card-img-top" style="height:250px; object-fit:cover;" alt="Младен Арсенијевић">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Младен Арсенијевић</h5>
+                    <p class="text-muted">Четврти разред</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ментор -->
+    <div class="text-center mt-5">
+        <div class="card mx-auto shadow-sm" style="max-width:300px;">
+            <img src="/Content/slike/maja_stepanovic.jpg" class="card-img-top rounded-circle p-3" style="height:250px; object-fit:cover;" alt="Проф. Маја Степановић">
+            <div class="card-body">
+                <h5 class="card-title">Проф. Маја Степановић</h5>
+                <p class="card-text">Водила екипу као ментор</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+    }
+</style>

@@ -1,0 +1,73 @@
+﻿@model GimnazijaKM.Models.JezickiSmer
+
+@{
+    ViewBag.Title = "Друштвено-језички смер";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h1 class="text-center mb-5 text-primary display-5 fw-bold">Друштвено - језички смер</h1>
+        <div class="row align-items-center">
+            <!-- Leva strana: Opis -->
+            <div class="col-lg-6 mb-4">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <h4 class="text-primary fw-bold mb-3">О смеру</h4>
+                    <p class="text-secondary" style="font-size: 1.1rem; line-height: 1.7;">
+                        @Html.Raw(Model?.Opis ?? "Опис није доступан.")
+                    </p>
+                </div>
+            </div>
+
+            <!-- Desna strana: 4 kockaste slike -->
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    @if (!string.IsNullOrEmpty(Model?.Slika1))
+                    {
+                        <div class="col-6">
+                            <div class="bg-white rounded shadow-sm p-1">
+                                <img src="@Url.Content(Model.Slika1)"
+                                     class="img-fluid w-100"
+                                     style="width: 100%; height: 200px; object-fit: contain; background-color: #fff;"
+                                     alt="Слика 1" />
+                            </div>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model?.Slika2))
+                    {
+                        <div class="col-6">
+                            <div class="bg-white rounded shadow-sm p-1">
+                                <img src="@Url.Content(Model.Slika2)"
+                                     class="img-fluid w-100"
+                                     style="width: 100%; height: 200px; object-fit: contain; background-color: #fff;"
+                                     alt="Слика 2" />
+                            </div>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model?.Slika3))
+                    {
+                        <div class="col-6">
+                            <div class="bg-white rounded shadow-sm p-1">
+                                <img src="@Url.Content(Model.Slika3)"
+                                     class="img-fluid w-100"
+                                     style="width: 100%; height: 200px; object-fit: contain; background-color: #fff;"
+                                     alt="Слика 3" />
+                            </div>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model?.Slika4))
+                    {
+                        <div class="col-6">
+                            <div class="bg-white rounded shadow-sm p-1">
+                                <img src="@Url.Content(Model.Slika4)"
+                                     class="img-fluid w-100"
+                                     style="width: 100%; height: 200px; object-fit: contain; background-color: #fff;"
+                                     alt="Слика 4" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

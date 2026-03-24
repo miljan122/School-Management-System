@@ -1,0 +1,44 @@
+﻿@model GimnazijaKM.Models.Maturanti
+
+@{
+    ViewBag.Title = "Ažuriraj Maturanta";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Ažuriraj Maturanta</h2>
+
+@using (Html.BeginForm("AzurirajMaturante", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.MaturantID)
+
+    <div class="form-group">
+        <label>Ime:</label>
+        @Html.TextBoxFor(m => m.Generacija, new { @class = "form-control", required = "required" })
+    </div>
+
+    <div class="form-group">
+        <label>Opis:</label>
+        @Html.TextAreaFor(m => m.Opis, new { @class = "form-control", required = "required", rows = 4 })
+    </div>
+
+    <div class="form-group">
+        <label>Trenutna slika:</label><br />
+        @if (!string.IsNullOrEmpty(Model.SlikaPath))
+        {
+            <img src="@Url.Content(Model.SlikaPath)" style="max-width: 200px;" alt="Slika" />
+        }
+        else
+        {
+            <span>Nema slike</span>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Promeni sliku:</label>
+        <input type="file" name="slika" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Sačuvaj izmene</button>
+    @Html.ActionLink("Nazad", "DodajMaturante", "Home", null, new { @class = "btn btn-secondary" })
+}

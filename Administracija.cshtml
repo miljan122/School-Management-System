@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Administracija";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 class="mb-4">Администрација</h2>
+
+<div class="container">
+    <div class="row">
+        <!-- Vreme -->
+        <div class="col-12">
+            <div class="card shadow p-3 mb-4 bg-white rounded text-center">
+                <h5 class="card-title">Тренутно време</h5>
+                <h3 id="trenutnoVreme" class="text-primary"></h3>
+            </div>
+        </div>
+
+        <!-- Kalendar -->
+        <div class="col-md-6">
+            <div class="card shadow p-3 mb-4 bg-white rounded">
+                <h5 class="card-title">Календар</h5>
+                <div id="kalendar" style="min-height: 500px;"></div>
+            </div>
+        </div>
+
+        <!-- Podsetnik -->
+        <div class="col-md-6">
+            <div class="card shadow p-3 mb-4 bg-white rounded">
+                <h5 class="card-title">Подсетник</h5>
+
+                <form id="podsetnikForma" class="mb-3 d-flex">
+                    <input type="text" id="novaStavka" class="form-control me-2" placeholder="Унеси нову ставку..." />
+                    <button type="submit" class="btn btn-primary">Додај</button>
+                </form>
+
+                <ul id="listaPodsetnika" class="list-group">
+                    <!-- Dinamički se pune stavke -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<!-- JavaScript funkcionalnosti -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // === 1. Vreme ===
+        function prikaziVreme() {
+            const vremeEl = document.getElementById("trenutnoVreme");
+            const sada = new Date();
+
+            const dani = ["недеља", "понедељак", "уторак", "среда", "четвртак", "петак", "субота"];
+            const dan = dani[sada.getDay()];
+            const datum = sada.toLocaleDateString("sr-RS");
+            const sati = sada.getHours().toString().padStart(2, '0');
+            const minuti = sada.getMinutes().toString().padStart(2, '0');
+            const sekunde = sada.getSeconds().toString().padStart(2, '0');
+
+            vremeEl.textContent = `${dan}, ${datum} ${sati}:${minuti}:${sekunde}`;
+        }
+
+        prikaziVreme();
+        setInterval(prikaziVreme, 1000);
+
+        // === 2. Kalendar ===
+        var calendarEl = document.getElementById('kalendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            height: 500,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [] // Ovde možeš dodati događaje iz baze ako želiš
+        });
+
+        calendar.render();
+
+        // === 3. Podsetnik sa localStorage ===
+        const forma = document.getElementById("podsetnikForma");
+        const novaStavka = document.getElementById("novaStavka");
+        const lista = document.getElementById("listaPodsetnika");
+
+        function ucitajPodsetnik() {
+            const stavke = JSON.parse(localStorage.getItem("podsetnik")) || [];
+            lista.innerHTML = "";
+            stavke.forEach(dodajStavku);
+        }
+
+        function sacuvajPodsetnik() {
+            const stavke = [];
+            lista.querySelectorAll("li").forEach(li => {
+                stavke.push(li.dataset.tekst);
+            });
+            localStorage.setItem("podsetnik", JSON.stringify(stavke));
+        }
+
+        function dodajStavku(tekst) {
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+            li.dataset.tekst = tekst;
+            li.innerHTML = tekst + '<button class="btn btn-sm btn-danger ms-2">X</button>';
+
+            li.querySelector("button").addEventListener("click", function () {
+                li.remove();
+                sacuvajPodsetnik();
+            });
+
+            lista.appendChild(li);
+        }
+
+        forma.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const tekst = novaStavka.value.trim();
+            if (tekst !== "") {
+                dodajStavku(tekst);
+                sacuvajPodsetnik();
+                novaStavka.value = "";
+            }
+        });
+
+        ucitajPodsetnik();
+    });
+</script>

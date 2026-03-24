@@ -1,0 +1,133 @@
+﻿@model GimnazijaKM.Models.Vesti
+
+@{
+    ViewBag.Title = "Kreiraj Novost";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 class="text-center">Kreiraj Novost</h2>
+
+@using (Html.BeginForm("KreirajVest", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        
+        @Html.LabelFor(model => model.Naslov)
+        @Html.TextBoxFor(model => model.Naslov, new { @class = "form-control", placeholder = "Unesite naslov" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.KratakOpis)
+        @Html.TextBoxFor(model => model.KratakOpis, new { @class = "form-control", placeholder = "Unesite kratak opis" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PunOpis)
+        @Html.TextAreaFor(model => model.PunOpis, new { @class = "form-control", rows = 5, placeholder = "Unesite pun opis" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Slika1)
+        <input type="file" name="Slika1" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Slika2)
+        <input type="file" name="Slika2" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Slika3)
+        <input type="file" name="Slika3" class="form-control" />
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Autor)
+        @Html.TextBoxFor(model => model.Autor, new { @class = "form-control", placeholder = "Unesite autora" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Kategorija)
+        @Html.TextBoxFor(model => model.Kategorija, new { @class = "form-control", placeholder = "Unesite kategoriju" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tag)
+        @Html.TextBoxFor(model => model.Tag, new { @class = "form-control", placeholder = "Unesite tag" })
+    </div>
+
+ 
+
+    <button type="submit" class="btn btn-primary btn-block">Sačuvaj</button>
+}
+
+<hr />
+
+<h2 class="text-center">Lista svih vesti</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Naslov</th>
+                <th>Kratak Opis</th>
+                <th>Autor</th>
+                <th>Datum</th>
+             
+                <th>Slika - Glavna</th>
+                <th>Slika 2</th>
+                <th>Slika 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in (List<GimnazijaKM.Models.Vesti>)ViewBag.VestiLista)
+            {
+                <tr>
+                    <td>@item.Naslov</td>
+                    <td>@item.KratakOpis</td>
+                    <td>@item.Autor</td>
+                    <td>@item.KreiranoUFormatted</td>
+               
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika1))
+                        {
+                            <img src="@Url.Content(item.Slika1)" alt="Slika 1" style="width: 100px; height: auto;" />
+                        }
+                        else
+                        {
+                            <span>No image available</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika2))
+                        {
+                            <img src="@item.Slika2" alt="Slika 2" style="width: 100px; height: auto;" />
+                        }
+                        else
+                        {
+                            <span>No image available</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Slika3))
+                        {
+                            <img src="@item.Slika3" alt="Slika 3" style="width: 100px; height: auto;" />
+                        }
+                        else
+                        {
+                            <span>No image available</span>
+                        }
+                    </td>
+                
+
+                    <td>
+                        @Html.ActionLink("Edit", "Azuriraj", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Delete", "Izbrisi", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Da li ste sigurni?');" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

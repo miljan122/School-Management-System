@@ -1,0 +1,61 @@
+﻿@model GimnazijaKM.Models.tbl_Admin
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-column min-vh-100">
+    <div class="container mt-5 flex-grow-1">
+        <h2 class="text-center mb-4" style="color: #003366; font-weight: bold; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);">Login</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <!-- Card for the form -->
+            <div class="card shadow-lg border-0 rounded-lg p-5">
+                <h4 class="text-center mb-4" style="color: #003366;">Uloguj Se kao Admin</h4>
+                <hr />
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <!-- Username -->
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.KorisnicnoIme, htmlAttributes: new { @class = "form-label" })
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.KorisnicnoIme, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.KorisnicnoIme, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Lozinka, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.Lozinka, new { @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Lozinka, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- Remember Me checkbox -->
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Zapamti me</label>
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-group text-center">
+                    <input type="submit" value="Uloguj Se" class="btn btn-warning btn-lg w-100" />
+                    <p style="color:red">@ViewBag.msg</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+        @Html.ActionLink("Nazad na listu", "Index", null, new { @class = "btn btn-danger btn-sm" })
+    </div>
+</div>
+

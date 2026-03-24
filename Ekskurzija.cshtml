@@ -1,0 +1,60 @@
+﻿@model IEnumerable<GimnazijaKM.Models.Ekskurzije>
+
+@{
+    ViewBag.Title = "Екскурзија";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container py-5">
+    <div class="row text-center mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Матуранти</h5>
+                    <p class="card-text">Погледајте генерације наших матураната и њихове успехе.</p>
+                    <a href="@Url.Action("Maturanti", "Home")" class="btn btn-primary">Погледај</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm h-100 bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Екскурзије</h5>
+                    <p class="card-text">Галерије са путовања и екскурзија наших ученика.</p>
+                    <a href="@Url.Action("Ekskurzije", "Home")" class="btn btn-light">Тренутно гледате</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card border-0 shadow-sm h-100 ">
+                <div class="card-body">
+                    <h5 class="card-title">Мост математика</h5>
+                    <p class="card-text">Успех ученика на престижном такмичењу.</p>
+                    <a href="@Url.Action("MostMatematike", "Home")" class="btn btn-primary">Погледај</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="text-center mb-5">Екскурзије</h1>
+
+    <h2 class="mb-4">Наше екскурзије</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@Url.Content(item.Slika1)" style="height:310px; object-fit:cover;" class="card-img-top" alt="@item.Naslov" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@item.Naslov</h5>
+                        <a href="@Url.Action("PrikazEkskurzije", "Home", new { id = item.Id })" class="btn btn-primary mt-auto">Детаљније</a>
+
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</section>

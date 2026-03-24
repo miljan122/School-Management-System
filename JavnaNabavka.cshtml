@@ -1,0 +1,77 @@
+﻿@model List<GimnazijaKM.Models.JavneNabavke>
+@{
+    ViewBag.Title = "Јавне набавке";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Flex kontejner koji ispunjava celu visinu prozora */
+    body, html {
+        height: 80%;
+        margin: 0;
+    }
+
+    .page-container {
+        min-height: 100vh; /* cela visina ekrana */
+        display: flex;
+        flex-direction: column;
+    }
+
+    main.content-wrapper {
+        flex: 1 0 auto; /* raste i zauzima preostali prostor */
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+   
+    .table thead th {
+        background-color: #0d6efd;
+        color: white;
+    }
+</style>
+
+<div class="page-container">
+
+    <main role="main" class="content-wrapper container">
+        <h1 class="mb-4">Јавне набавке</h1>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Опис</th>
+                            <th style="width: 150px;">Датум</th>
+                            <th style="width: 150px;">Преузимање</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Opis</td>
+                                <td>@(item.DatumDodavanja?.ToString("dd.MM.yyyy") ?? "N/A")</td>
+                                <td>
+                                    <a href="@Url.Action("PreuzmiPdf", "Home", new { id = item.Id })"
+                                       class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener noreferrer">
+                                        <i class="bi bi-file-earmark-pdf"></i> Преузми PDF
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                Нема доступних јавних набавки.
+            </div>
+        }
+    </main>
+
+   
+
+</div>

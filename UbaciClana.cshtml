@@ -1,0 +1,30 @@
+﻿@model GimnazijaKM.Models.Clan
+
+@{
+    ViewBag.Title = "Dodaj Člana";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Додај члана у тим: <strong>@ViewBag.TimNaziv</strong></h2>
+
+    @using (Html.BeginForm("UbaciClana", "Home", FormMethod.Post)) // Kontroler koji koristiš
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.TimId)
+
+        <div class="mb-3">
+            @Html.LabelFor(model => model.Ime, "Име и презиме")
+            @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", placeholder = "Име члана" })
+            @Html.ValidationMessageFor(model => model.Ime)
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(model => model.RedniBroj, "Редни број у приказу")
+            @Html.TextBoxFor(model => model.RedniBroj, new { @class = "form-control", type = "number", min = "1" })
+            @Html.ValidationMessageFor(model => model.RedniBroj)
+        </div>
+
+        <button type="submit" class="btn btn-success">Сачувај члана</button>
+    }
+</div>

@@ -1,0 +1,18 @@
+﻿@model GimnazijaKM.Models.Letopi
+
+@{
+    ViewBag.Title = "Obriši Letopis";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Potvrda brisanja</h2>
+
+<p>Da li ste sigurni da želite da obrišete letopis sa naslovom: <strong>@Model.Naslov</strong>?</p>
+
+@using (Html.BeginForm("ObrisiLetopis", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Id", Model.Id)
+    <button type="submit" class="btn btn-danger">Obriši</button>
+    <a href="@Url.Action("DodajLetopis", "Home")" class="btn btn-secondary">Odustani</a>
+}

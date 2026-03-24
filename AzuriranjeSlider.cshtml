@@ -1,0 +1,34 @@
+﻿@model GimnazijaKM.Models.Slider
+
+@{
+    ViewBag.Title = "Ажурирај Слајдер";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Ажурирај Слике</h2>
+
+@using (Html.BeginForm("AzuriranjeSlider", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.SliderID)
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>Тренутна слика 1:</label><br />
+            <img src="@Model.Slika1" width="150" class="img-thumbnail mb-2" /><br />
+            <input type="file" name="slika1" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Тренутна слика 2:</label><br />
+            <img src="@Model.Slika2" width="150" class="img-thumbnail mb-2" /><br />
+            <input type="file" name="slika2" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Тренутна слика 3:</label><br />
+            <img src="@Model.Slika3" width="150" class="img-thumbnail mb-2" /><br />
+            <input type="file" name="slika3" class="form-control" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Сачувај измене</button>
+    <a href="@Url.Action("DodajSlider", "Home")" class="btn btn-secondary mt-3">Назад</a>
+}

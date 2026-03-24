@@ -1,0 +1,55 @@
+﻿@model GimnazijaKM.Models.JezickiSmer
+
+@{
+    ViewBag.Title = "Ажурирај Језички Смер";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Ажурирај Језички Смер</h2>
+
+    @using (Html.BeginForm("AzuriranjeJsmera", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>Слика 1</label>
+                <input type="file" name="Slika1" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Slika1))
+                {
+                    <img src="@Url.Content(Model.Slika1)" width="100" />
+                }
+            </div>
+            <div class="col-md-3">
+                <label>Слика 2</label>
+                <input type="file" name="Slika2" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Slika2))
+                {
+                    <img src="@Url.Content(Model.Slika2)" width="100" />
+                }
+            </div>
+            <div class="col-md-3">
+                <label>Слика 3</label>
+                <input type="file" name="Slika3" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Slika3))
+                {
+                    <img src="@Url.Content(Model.Slika3)" width="100" />
+                }
+            </div>
+            <div class="col-md-3">
+                <label>Слика 4</label>
+                <input type="file" name="Slika4" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.Slika4))
+                {
+                    <img src="@Url.Content(Model.Slika4)" width="100" />
+                }
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Опис</label>
+            <textarea name="Opis" class="form-control" rows="4">@Model.Opis</textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Сачувај промене</button>
+    }
+</div>

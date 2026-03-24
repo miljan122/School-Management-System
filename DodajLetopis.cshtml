@@ -1,0 +1,78 @@
+﻿
+@model List<GimnazijaKM.Models.Letopi>
+
+@{
+    ViewBag.Title = "Dodaj Letopis";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
+}
+
+<h2>Dodaj Letopis</h2>
+
+@using (Html.BeginForm("DodajLetopis", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group mb-3">
+        @Html.Label("Naslov")
+        @Html.TextBox("naslov", null, new { @class = "form-control", required = "required" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.Label("Opis")
+        @Html.TextArea("opis", null, new { @class = "form-control", rows = 3, required = "required" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.Label("PDF fajl (opciono)")
+        <input type="file" name="pdfFajl" accept="application/pdf" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sačuvaj</button>
+}
+
+<hr />
+
+<h3>Lista Letopisa</h3>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Naslov</th>
+                <th>Opis</th>
+                <th>Datum unosa</th>
+                <th>PDF</th>
+                <th>Akcije</th> <!-- nova kolona -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Naslov</td>
+                    <td>@item.Opis</td>
+                    <td>@(item.DatumUnosa.HasValue ? item.DatumUnosa.Value.ToString("dd.MM.yyyy HH:mm") : "")</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.PdfPutanja))
+                        {
+                            <a href="@Url.Content(item.PdfPutanja)" target="_blank">Preuzmi PDF</a>
+                        }
+                        else
+                        {
+                            <span> - </span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("IzmeniLetopis", "Home", new { id = item.Id })" class="btn btn-sm btn-warning">Izmeni</a>
+                        <a href="@Url.Action("ObrisiLetopis", "Home", new { id = item.Id })" class="btn btn-sm btn-danger">Obriši</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p>Nema unetih letopisa.</p>
+}

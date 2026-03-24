@@ -1,0 +1,79 @@
+﻿@model GimnazijaKM.Models.Projekti
+
+@{
+    ViewBag.Title = "Ажурирај Пројекат";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Ажурирај Пројекат</h2>
+
+@using (Html.BeginForm("AzurirajProjekat", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Tekst1)
+            @Html.TextBoxFor(m => m.Tekst1, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Tekst2)
+            @Html.TextBoxFor(m => m.Tekst2, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Tekst3)
+            @Html.TextBoxFor(m => m.Tekst3, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Tekst4)
+            @Html.TextBoxFor(m => m.Tekst4, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Tekst5)
+        @Html.TextBoxFor(m => m.Tekst5, new { @class = "form-control" })
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label>Тренутна слика 1</label><br />
+            @if (!string.IsNullOrEmpty(Model.Slika1Path))
+            {
+                <img src="@Url.Content(Model.Slika1Path)" width="150" class="mb-2" />
+            }
+            <input type="file" name="Slika1" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>Тренутна слика 2</label><br />
+            @if (!string.IsNullOrEmpty(Model.Slika2Path))
+            {
+                <img src="@Url.Content(Model.Slika2Path)" width="150" class="mb-2" />
+            }
+            <input type="file" name="Slika2" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>Тренутна слика 3</label><br />
+            @if (!string.IsNullOrEmpty(Model.Slika3Path))
+            {
+                <img src="@Url.Content(Model.Slika3Path)" width="150" class="mb-2" />
+            }
+            <input type="file" name="Slika3" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>Тренутна слика 4</label><br />
+            @if (!string.IsNullOrEmpty(Model.Slika4Path))
+            {
+                <img src="@Url.Content(Model.Slika4Path)" width="150" class="mb-2" />
+            }
+            <input type="file" name="Slika4" class="form-control" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Сачувај измене</button>
+    @Html.ActionLink("Projekti", "Projekti", "Home", null, new { @class = "btn btn-secondary ms-2" })
+}

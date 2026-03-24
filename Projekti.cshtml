@@ -1,0 +1,113 @@
+﻿@model List<GimnazijaKM.Models.Projekti>
+
+@{
+    ViewBag.Title = "Пројекти";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 class="mb-4">Додај нови пројекат</h2>
+
+@using (Html.BeginForm("Projekti", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            @Html.Label("Tekst1", "Текст 1")
+            <input type="text" name="Tekst1" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            @Html.Label("Tekst2", "Текст 2")
+            <input type="text" name="Tekst2" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            @Html.Label("Tekst3", "Текст 3")
+            <input type="text" name="Tekst3" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            @Html.Label("Tekst4", "Текст 4")
+            <input type="text" name="Tekst4" class="form-control" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        @Html.Label("Tekst5", "Текст 5")
+        <input type="text" name="Tekst5" class="form-control" />
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <label for="Slika1">Слика 1</label>
+            <input type="file" name="Slika1" id="Slika1" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="Slika2">Слика 2</label>
+            <input type="file" name="Slika2" id="Slika2" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="Slika3">Слика 3</label>
+            <input type="file" name="Slika3" id="Slika3" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="Slika4">Слика 4</label>
+            <input type="file" name="Slika4" id="Slika4" class="form-control" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-5">Додај пројекат</button>
+}
+
+<h2>Сви пројекти</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Текстови</th>
+            <th>Слике</th>
+            <th>Датум уноса</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var projekat in Model)
+        {
+            <tr>
+                <td>@projekat.Id</td>
+                <td>
+                    @projekat.Tekst1<br />
+                    @projekat.Tekst2<br />
+                    @projekat.Tekst3<br />
+                    @projekat.Tekst4<br />
+                    @projekat.Tekst5
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(projekat.Slika1Path))
+                    {
+                        <img src="@Url.Content(projekat.Slika1Path)" alt="Слика 1" width="80" class="me-1 rounded" />
+                    }
+                    @if (!string.IsNullOrEmpty(projekat.Slika2Path))
+                    {
+                        <img src="@Url.Content(projekat.Slika2Path)" alt="Слика 2" width="80" class="me-1 rounded" />
+                    }
+                    @if (!string.IsNullOrEmpty(projekat.Slika3Path))
+                    {
+                        <img src="@Url.Content(projekat.Slika3Path)" alt="Слика 3" width="80" class="me-1 rounded" />
+                    }
+                    @if (!string.IsNullOrEmpty(projekat.Slika4Path))
+                    {
+                        <img src="@Url.Content(projekat.Slika4Path)" alt="Слика 4" width="80" class="me-1 rounded" />
+                    }
+                </td>
+                <td>@projekat.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>
+                    @Html.ActionLink("Измени", "AzurirajProjekat", new { id = projekat.Id }, new { @class = "btn btn-sm btn-warning me-1" })
+                    @Html.ActionLink("Обриши", "IzbrisiProjekat", new { id = projekat.Id }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,90 @@
+﻿@model GimnazijaKM.Models.RasporedViewModel
+
+@{
+    ViewBag.Title = "Убаци распоред";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Убаци распоред</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+
+@using (Html.BeginForm("UbaciRaspored", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Naslov)
+        @Html.TextBoxFor(m => m.Naslov, new { @class = "form-control", placeholder = "Унесите наслов" })
+        @Html.ValidationMessageFor(m => m.Naslov, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Slika1)
+        <input type="file" name="Slika1" class="form-control" accept="image/*" required />
+        @Html.ValidationMessageFor(m => m.Slika1, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Slika2)
+        <input type="file" name="Slika2" class="form-control" accept="image/*" required />
+        @Html.ValidationMessageFor(m => m.Slika2, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Сачувај распоред</button>
+}
+
+<h3 class="mt-5">Сви распореди у систему</h3>
+
+@if (ViewBag.SviRasporedi != null && ((List<GimnazijaKM.Models.Rasporedi>)ViewBag.SviRasporedi).Any())
+{
+    var sviRasporedi = (List<GimnazijaKM.Models.Rasporedi>)ViewBag.SviRasporedi;
+
+   <table class="table table-bordered table-striped mt-3">
+       <thead class="thead-dark">
+           <tr>
+               <th>#</th>
+               <th>Наслов</th>
+               <th>Прва слика</th>
+               <th>Друга слика</th>
+               <th>Акције</th> <!-- Nova kolona za dugmad -->
+           </tr>
+       </thead>
+       <tbody>
+           @foreach (var item in sviRasporedi)
+           {
+               <tr>
+                   <td>@item.ID</td>
+                   <td>@item.Naslov</td>
+                   <td>
+                       <img src="@Url.Content("~" + item.Slika1)" style="width:150px; height:150px; object-fit: cover;" class="img-thumbnail" />
+                   </td>
+                   <td>
+                       <img src="@Url.Content("~" + item.Slika2)" style="width:150px; height:150px; object-fit: cover;" class="img-thumbnail" />
+                   </td>
+                   <td>
+                       @* Dugme za Edit *@
+                       <a href="@Url.Action("IzmeniRaspored", "Home", new { id = item.ID })" class="btn btn-sm btn-warning mb-1">Измени</a>
+
+                       @* Dugme za Delete *@
+                       @using (Html.BeginForm("IzbrisiRaspored", "Home", FormMethod.Post, new { onsubmit = "return confirm('Да ли сте сигурни да желите да избришете овај распоред?');" }))
+                       {
+                           @Html.AntiForgeryToken()
+                           @Html.Hidden("id", item.ID)
+                           <button type="submit" class="btn btn-sm btn-danger">Обриши</button>
+                       }
+                   </td>
+               </tr>
+           }
+       </tbody>
+   </table>
+}
+else
+{
+    <p class="text-muted">Тренутно нема убачених распореда.</p>
+}

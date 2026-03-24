@@ -1,0 +1,29 @@
+﻿@model GimnazijaKM.Models.JavneNabavke
+
+@{
+    ViewBag.Title = "Izmeni Javnu Nabavku";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Izmeni Javnu Nabavku</h2>
+
+@using (Html.BeginForm("IzmeniJavnu", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label>Opis</label>
+        @Html.TextAreaFor(m => m.Opis, new { @class = "form-control", rows = 4 })
+    </div>
+
+    
+
+    <div class="form-group">
+        <label>Zameni PDF fajl (opciono)</label>
+        <input type="file" name="fajl" class="form-control" accept=".pdf" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Sačuvaj izmene</button>
+    <a href="@Url.Action("Nazad","DodajJavneNabavke", "Home")" class="btn btn-secondary mt-2">Nazad</a>
+}

@@ -1,0 +1,85 @@
+﻿@model GimnazijaKM.Models.Vesti
+
+@{
+    ViewBag.Title = "Izmeni Vest";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Izmeni Vest</h2>
+
+@using (Html.BeginForm("Azuriraj", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Naslov)
+            @Html.TextBoxFor(model => model.Naslov, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KratakOpis)
+            @Html.TextAreaFor(model => model.KratakOpis, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PunOpis)
+            @Html.TextAreaFor(model => model.PunOpis, new { @class = "form-control" })
+        </div>
+
+        <!-- Slika 1 - upload -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Slika1)
+            <input type="file" name="Slika1" class="form-control" />
+            @if (!string.IsNullOrEmpty(Model.Slika1))
+            {
+                <img src="@Model.Slika1" alt="Slika1" style="max-width: 200px; margin-top: 10px;" />
+            }
+        </div>
+
+        <!-- Slika 2 - upload -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Slika2)
+            <input type="file" name="Slika2" class="form-control" />
+            @if (!string.IsNullOrEmpty(Model.Slika2))
+            {
+                <img src="@Model.Slika2" alt="Slika2" style="max-width: 200px; margin-top: 10px;" />
+            }
+        </div>
+
+        <!-- Slika 3 - upload -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Slika3)
+            <input type="file" name="Slika3" class="form-control" />
+            @if (!string.IsNullOrEmpty(Model.Slika3))
+            {
+                <img src="@Model.Slika3" alt="Slika3" style="max-width: 200px; margin-top: 10px;" />
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Autor)
+            @Html.TextBoxFor(model => model.Autor, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Kategorija)
+            @Html.TextBoxFor(model => model.Kategorija, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tag)
+            @Html.TextBoxFor(model => model.Tag, new { @class = "form-control" })
+        </div>
+
+    
+
+        <br />
+
+        <button type="submit" class="btn btn-primary">Sačuvaj</button>
+        @Html.ActionLink("Nazad", "KreirajVest", null, new { @class = "btn btn-secondary" })
+    </div>
+}

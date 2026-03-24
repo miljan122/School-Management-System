@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Dodaj Javnu Nabavku";
+    var nabavke = ViewBag.Nabavke as List<GimnazijaKM.Models.JavneNabavke>;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Додај Јавну Набавку</h2>
+
+@using (Html.BeginForm("DodajJavneNabavke", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Oпис</label>
+        <textarea name="opis" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>PDF фајл</label>
+        <input type="file" name="fajl" class="form-control" accept=".pdf" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Сачувај</button>
+}
+
+@if (TempData["Poruka"] != null)
+{
+    <div class="alert alert-info mt-3">@TempData["Poruka"]</div>
+}
+
+<hr />
+
+<h3>Преглед унетих Јавних набавки</h3>
+
+@if (nabavke != null && nabavke.Any())
+{
+    <table class="table table-striped table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Oпис</th>
+                <th>PDF фајл</th>
+                <th>Датум Уноса</th>
+                <th>Акције</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in nabavke)
+            {
+                <tr>
+                    <td>@item.Opis</td>
+                    <td>
+                        <a href="@Url.Action("PreuzmiPdf", "Home", new { id = item.Id })" target="_blank" class="btn btn-success btn-sm">Преузми</a>
+                    </td>
+                    <td>@(item.DatumDodavanja?.ToString("dd.MM.yyyy") ?? "N/A")</td>
+                    <td>
+                        <a href="@Url.Action("IzmeniJavnu", "Home", new { id = item.Id })" class="btn btn-warning btn-sm">Измени</a>
+
+                        @using (Html.BeginForm("ObrisiJavnuNabavku", "Home", FormMethod.Post, new { @style = "display:inline;" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("id", item.Id)
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Да ли сте сигурни да желите да обришете?');">Обриши</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+else
+{
+    <p>Нема Уноса.</p>
+}

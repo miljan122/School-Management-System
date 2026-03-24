@@ -1,0 +1,56 @@
+﻿@model IEnumerable<GimnazijaKM.Models.MatematickiSmer>
+
+@{
+    ViewBag.Title = "Математички смер";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 class="text-center">Додај математиčki смер</h2>
+
+@using (Html.BeginForm("DodajMatematickiSmer", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label>Слика 1</label>
+            <input type="file" name="slika1" class="form-control" />
+            <label>Слика 2</label>
+            <input type="file" name="slika2" class="form-control" />
+            <label>Слика 3</label>
+            <input type="file" name="slika3" class="form-control" />
+            <label>Слика 4</label>
+            <input type="file" name="slika4" class="form-control" />
+            <label>Опис</label>
+            <textarea name="opis" class="form-control" rows="4"></textarea>
+            <br />
+            <button type="submit" class="btn btn-success">Сачувај</button>
+        </div>
+    </div>
+}
+
+<hr />
+
+<h3>Унесени подаци</h3>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Слика 1</th>
+        <th>Слика 2</th>
+        <th>Слика 3</th>
+        <th>Слика 4</th>
+        <th>Опис</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><img src="@item.Slika1" width="100" /></td>
+            <td><img src="@item.Slika2" width="100" /></td>
+            <td><img src="@item.Slika3" width="100" /></td>
+            <td><img src="@item.Slika4" width="100" /></td>
+            <td>@item.Opis</td>
+            <td>
+                <a href="@Url.Action("AzurirajMatematickiSmer", "Home", new { id = item.Id })" class="btn btn-warning btn-sm">Измени</a>
+                <a href="@Url.Action("IzbrisiMatematickiSmer", "Home", new { id = item.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Да ли сте сигурни да желите да обришете?')">Обриши</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,650 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GimnazijaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clan">
+          <Key>
+            <PropertyRef Name="ClanId" />
+          </Key>
+          <Property Name="ClanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RedniBroj" Type="int" Nullable="false" />
+          <Property Name="TimId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactMessages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PunoIme" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Tema" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Poruka" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Poslato" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dogadjaji">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Datum" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+          <Property Name="Slika" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Ekskurzije">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naslov" Type="nvarchar" MaxLength="100" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+          <Property Name="Slika1" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika2" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika3" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika4" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika5" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika6" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika7" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika8" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Fajlovi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Tip" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Putanja" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JavneNabavke">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="255" />
+          <Property Name="DatumDodavanja" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JezickiSmer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slika1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika4" Type="nvarchar" MaxLength="255" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Letopis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naslov" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Opis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PdfPutanja" Type="nvarchar" MaxLength="500" />
+          <Property Name="DatumUnosa" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MatematickiSmer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slika1" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika2" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika3" Type="nvarchar" MaxLength="200" />
+          <Property Name="Slika4" Type="nvarchar" MaxLength="200" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Maturanti">
+          <Key>
+            <PropertyRef Name="MaturantID" />
+          </Key>
+          <Property Name="MaturantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Generacija" Type="nvarchar" MaxLength="100" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+          <Property Name="SlikaPath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Projekti">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tekst1" Type="nvarchar" MaxLength="500" />
+          <Property Name="Tekst2" Type="nvarchar" MaxLength="500" />
+          <Property Name="Tekst3" Type="nvarchar" MaxLength="500" />
+          <Property Name="Tekst4" Type="nvarchar" MaxLength="500" />
+          <Property Name="Tekst5" Type="nvarchar" MaxLength="500" />
+          <Property Name="Slika1Path" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika2Path" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika3Path" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika4Path" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rasporedi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naslov" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Slika1" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Slika2" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="SliderID" />
+          </Key>
+          <Property Name="SliderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slika1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Slika3" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KorisnicnoIme" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tim">
+          <Key>
+            <PropertyRef Name="TimId" />
+          </Key>
+          <Property Name="TimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BojaKartice" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Vesti">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naslov" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="KratakOpis" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PunOpis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Slika1" Type="nvarchar" MaxLength="300" />
+          <Property Name="Slika2" Type="nvarchar" MaxLength="300" />
+          <Property Name="Slika3" Type="nvarchar" MaxLength="300" />
+          <Property Name="Autor" Type="nvarchar" MaxLength="100" />
+          <Property Name="Kategorija" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tag" Type="nvarchar" MaxLength="300" />
+          <Property Name="Objavljeno" Type="bit" />
+          <Property Name="KreiranoU" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Clan__TimId__2B0A656D">
+          <End Role="Tim" Type="Self.Tim" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Clan" Type="Self.Clan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tim">
+              <PropertyRef Name="TimId" />
+            </Principal>
+            <Dependent Role="Clan">
+              <PropertyRef Name="TimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GimnazijaDBModelStoreContainer">
+          <EntitySet Name="Clan" EntityType="Self.Clan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactMessages" EntityType="Self.ContactMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dogadjaji" EntityType="Self.Dogadjaji" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ekskurzije" EntityType="Self.Ekskurzije" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fajlovi" EntityType="Self.Fajlovi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JavneNabavke" EntityType="Self.JavneNabavke" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JezickiSmer" EntityType="Self.JezickiSmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Letopis" EntityType="Self.Letopis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatematickiSmer" EntityType="Self.MatematickiSmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maturanti" EntityType="Self.Maturanti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projekti" EntityType="Self.Projekti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rasporedi" EntityType="Self.Rasporedi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tim" EntityType="Self.Tim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vesti" EntityType="Self.Vesti" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Clan__TimId__2B0A656D" Association="Self.FK__Clan__TimId__2B0A656D">
+            <End Role="Tim" EntitySet="Tim" />
+            <End Role="Clan" EntitySet="Clan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GimnazijaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KorisnicnoIme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="GimnazijaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
+          <EntitySet Name="Vestis" EntityType="GimnazijaDBModel.Vesti" />
+          <EntitySet Name="Dogadjajis" EntityType="GimnazijaDBModel.Dogadjaji" />
+          <EntitySet Name="Fajlovis" EntityType="GimnazijaDBModel.Fajlovi" />
+          <EntitySet Name="ContactMessages" EntityType="GimnazijaDBModel.ContactMessage" />
+          <EntitySet Name="Rasporedis" EntityType="GimnazijaDBModel.Rasporedi" />
+          <EntitySet Name="Clans" EntityType="GimnazijaDBModel.Clan" />
+          <EntitySet Name="Tims" EntityType="GimnazijaDBModel.Tim" />
+          <AssociationSet Name="FK__Clan__TimId__2B0A656D" Association="GimnazijaDBModel.FK__Clan__TimId__2B0A656D">
+            <End Role="Tim" EntitySet="Tims" />
+            <End Role="Clan" EntitySet="Clans" />
+          </AssociationSet>
+          <EntitySet Name="Maturantis" EntityType="GimnazijaDBModel.Maturanti" />
+          <EntitySet Name="JavneNabavkes" EntityType="GimnazijaDBModel.JavneNabavke" />
+          <EntitySet Name="Letopis" EntityType="GimnazijaDBModel.Letopi" />
+          <EntitySet Name="Ekskurzijes" EntityType="GimnazijaDBModel.Ekskurzije" />
+          <EntitySet Name="Projektis" EntityType="GimnazijaDBModel.Projekti" />
+          <EntitySet Name="JezickiSmers" EntityType="GimnazijaDBModel.JezickiSmer" />
+          <EntitySet Name="MatematickiSmers" EntityType="GimnazijaDBModel.MatematickiSmer" />
+          <EntitySet Name="Sliders" EntityType="GimnazijaDBModel.Slider" />
+        </EntityContainer>
+        <EntityType Name="Vesti">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naslov" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KratakOpis" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PunOpis" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Slika1" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Slika3" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Autor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Kategorija" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tag" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Objavljeno" Type="Boolean" />
+          <Property Name="KreiranoU" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Dogadjaji">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Datum" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Slika" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Fajlovi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Tip" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Putanja" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ContactMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PunoIme" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tema" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Poruka" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Poslato" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Rasporedi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naslov" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Clan">
+          <Key>
+            <PropertyRef Name="ClanId" />
+          </Key>
+          <Property Name="ClanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RedniBroj" Type="Int32" Nullable="false" />
+          <Property Name="TimId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tim" Relationship="GimnazijaDBModel.FK__Clan__TimId__2B0A656D" FromRole="Clan" ToRole="Tim" />
+        </EntityType>
+        <EntityType Name="Tim">
+          <Key>
+            <PropertyRef Name="TimId" />
+          </Key>
+          <Property Name="TimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BojaKartice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clans" Relationship="GimnazijaDBModel.FK__Clan__TimId__2B0A656D" FromRole="Tim" ToRole="Clan" />
+        </EntityType>
+        <Association Name="FK__Clan__TimId__2B0A656D">
+          <End Type="GimnazijaDBModel.Tim" Role="Tim" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GimnazijaDBModel.Clan" Role="Clan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tim">
+              <PropertyRef Name="TimId" />
+            </Principal>
+            <Dependent Role="Clan">
+              <PropertyRef Name="TimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Maturanti">
+          <Key>
+            <PropertyRef Name="MaturantID" />
+          </Key>
+          <Property Name="MaturantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Generacija" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SlikaPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JavneNabavke">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DatumDodavanja" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Letopi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naslov" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PdfPutanja" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DatumUnosa" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Ekskurzije">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naslov" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Slika1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika5" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika6" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika7" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika8" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Projekti">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tekst1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Tekst2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Tekst3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Tekst4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Tekst5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Slika1Path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2Path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika3Path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika4Path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="JezickiSmer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slika1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MatematickiSmer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slika1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Slika4" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="SliderID" />
+          </Key>
+          <Property Name="SliderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slika1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Slika3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GimnazijaDBModelStoreContainer" CdmEntityContainer="GimnazijaDBEntities">
+          <EntitySetMapping Name="tbl_Admin">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.tbl_Admin">
+              <MappingFragment StoreEntitySet="tbl_Admin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KorisnicnoIme" ColumnName="KorisnicnoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vestis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Vesti">
+              <MappingFragment StoreEntitySet="Vesti">
+                <ScalarProperty Name="KreiranoU" ColumnName="KreiranoU" />
+                <ScalarProperty Name="Objavljeno" ColumnName="Objavljeno" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="Slika3" ColumnName="Slika3" />
+                <ScalarProperty Name="Slika2" ColumnName="Slika2" />
+                <ScalarProperty Name="Slika1" ColumnName="Slika1" />
+                <ScalarProperty Name="PunOpis" ColumnName="PunOpis" />
+                <ScalarProperty Name="KratakOpis" ColumnName="KratakOpis" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dogadjajis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Dogadjaji">
+              <MappingFragment StoreEntitySet="Dogadjaji">
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fajlovis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Fajlovi">
+              <MappingFragment StoreEntitySet="Fajlovi">
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Putanja" ColumnName="Putanja" />
+                <ScalarProperty Name="Tip" ColumnName="Tip" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactMessages">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.ContactMessage">
+              <MappingFragment StoreEntitySet="ContactMessages">
+                <ScalarProperty Name="Poslato" ColumnName="Poslato" />
+                <ScalarProperty Name="Poruka" ColumnName="Poruka" />
+                <ScalarProperty Name="Tema" ColumnName="Tema" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PunoIme" ColumnName="PunoIme" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rasporedis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Rasporedi">
+              <MappingFragment StoreEntitySet="Rasporedi">
+                <ScalarProperty Name="Slika2" ColumnName="Slika2" />
+                <ScalarProperty Name="Slika1" ColumnName="Slika1" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clans">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Clan">
+              <MappingFragment StoreEntitySet="Clan">
+                <ScalarProperty Name="TimId" ColumnName="TimId" />
+                <ScalarProperty Name="RedniBroj" ColumnName="RedniBroj" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="ClanId" ColumnName="ClanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tims">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Tim">
+              <MappingFragment StoreEntitySet="Tim">
+                <ScalarProperty Name="BojaKartice" ColumnName="BojaKartice" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="TimId" ColumnName="TimId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maturantis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Maturanti">
+              <MappingFragment StoreEntitySet="Maturanti">
+                <ScalarProperty Name="SlikaPath" ColumnName="SlikaPath" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Generacija" ColumnName="Generacija" />
+                <ScalarProperty Name="MaturantID" ColumnName="MaturantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JavneNabavkes">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.JavneNabavke">
+              <MappingFragment StoreEntitySet="JavneNabavke">
+                <ScalarProperty Name="DatumDodavanja" ColumnName="DatumDodavanja" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Letopis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Letopi">
+              <MappingFragment StoreEntitySet="Letopis">
+                <ScalarProperty Name="DatumUnosa" ColumnName="DatumUnosa" />
+                <ScalarProperty Name="PdfPutanja" ColumnName="PdfPutanja" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ekskurzijes">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Ekskurzije">
+              <MappingFragment StoreEntitySet="Ekskurzije">
+                <ScalarProperty Name="Slika8" ColumnName="Slika8" />
+                <ScalarProperty Name="Slika7" ColumnName="Slika7" />
+                <ScalarProperty Name="Slika6" ColumnName="Slika6" />
+                <ScalarProperty Name="Slika5" ColumnName="Slika5" />
+                <ScalarProperty Name="Slika4" ColumnName="Slika4" />
+                <ScalarProperty Name="Slika3" ColumnName="Slika3" />
+                <ScalarProperty Name="Slika2" ColumnName="Slika2" />
+                <ScalarProperty Name="Slika1" ColumnName="Slika1" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Naslov" ColumnName="Naslov" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projektis">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Projekti">
+              <MappingFragment StoreEntitySet="Projekti">
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Slika4Path" ColumnName="Slika4Path" />
+                <ScalarProperty Name="Slika3Path" ColumnName="Slika3Path" />
+                <ScalarProperty Name="Slika2Path" ColumnName="Slika2Path" />
+                <ScalarProperty Name="Slika1Path" ColumnName="Slika1Path" />
+                <ScalarProperty Name="Tekst5" ColumnName="Tekst5" />
+                <ScalarProperty Name="Tekst4" ColumnName="Tekst4" />
+                <ScalarProperty Name="Tekst3" ColumnName="Tekst3" />
+                <ScalarProperty Name="Tekst2" ColumnName="Tekst2" />
+                <ScalarProperty Name="Tekst1" ColumnName="Tekst1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JezickiSmers">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.JezickiSmer">
+              <MappingFragment StoreEntitySet="JezickiSmer">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Slika4" ColumnName="Slika4" />
+                <ScalarProperty Name="Slika3" ColumnName="Slika3" />
+                <ScalarProperty Name="Slika2" ColumnName="Slika2" />
+                <ScalarProperty Name="Slika1" ColumnName="Slika1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MatematickiSmers">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.MatematickiSmer">
+              <MappingFragment StoreEntitySet="MatematickiSmer">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Slika4" ColumnName="Slika4" />
+                <ScalarProperty Name="Slika3" ColumnName="Slika3" />
+                <ScalarProperty Name="Slika2" ColumnName="Slika2" />
+                <ScalarProperty Name="Slika1" ColumnName="Slika1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sliders">
+            <EntityTypeMapping TypeName="GimnazijaDBModel.Slider">
+              <MappingFragment StoreEntitySet="Slider">
+                <ScalarProperty Name="Slika3" ColumnName="Slika3" />
+                <ScalarProperty Name="Slika2" ColumnName="Slika2" />
+                <ScalarProperty Name="Slika1" ColumnName="Slika1" />
+                <ScalarProperty Name="SliderID" ColumnName="SliderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

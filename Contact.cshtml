@@ -1,0 +1,101 @@
+﻿
+@model GimnazijaKM.Models.ContactMessage
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <!-- Наслов странице -->
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold" style="color: #0e1980; text-shadow: 2px 2px 2px rgba(255, 170, 0, 0.8);">Контактирајте нас</h1>
+            <p class="lead" style="color: #666;">Имате питања? Ту смо за вас!</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Контакт подаци -->
+            <div class="col-lg-5">
+                <div class="card p-4 shadow-sm border-0">
+                    <h4 class="mb-4" style="color: #0e1980;">Контакт информације</h4>
+                    <p><i class="bi bi-geo-alt-fill" style="color:#ffaa00;"></i> Косовска Митровица, Србија</p>
+                    <p><i class="bi bi-telephone-fill" style="color:#ffaa00;"></i> +381 28 123 456</p>
+                    <p><i class="bi bi-envelope-fill" style="color:#ffaa00;"></i> gimnazija@example.com</p>
+                    <p><i class="bi bi-clock-fill" style="color:#ffaa00;"></i> Понедељак - Петак: 08:00 - 15:00</p>
+
+                    <h5 class="mt-4 mb-3" style="color: #0e1980;">Пратите нас</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#"><i class="bi bi-facebook" style="font-size: 1.5rem; color: #0e1980;"></i></a>
+                        <a href="#"><i class="bi bi-instagram" style="font-size: 1.5rem; color: #0e1980;"></i></a>
+                        <a href="#"><i class="bi bi-twitter" style="font-size: 1.5rem; color: #0e1980;"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Мапа -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm border-0">
+                    <div class="ratio ratio-4x3">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28453.35320212965!2d20.847157!3d42.8973579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135345702a8f227d%3A0x4d677baccb077a19!2z0J_QtdGA0LLQvtC80LjRh9C10YHQutC40Lkg0YHQtdC70LjQutC-0LvQuNC60LAg0LrQvtC70LvQtdC90LjRjw!5e0!3m2!1ssr!2srs!4v1714157867197!5m2!1ssr!2srs"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма -->
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { id = "contactForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.PunoIme)
+                @Html.TextBoxFor(m => m.PunoIme, new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(m => m.PunoIme)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", required = "required" })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Tema)
+                @Html.TextBoxFor(m => m.Tema, new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(m => m.Tema)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Poruka)
+                @Html.TextAreaFor(m => m.Poruka, new { @class = "form-control", rows = 5, required = "required" })
+                @Html.ValidationMessageFor(m => m.Poruka)
+            </div>
+
+            <button type="submit" class="btn btn-primary">Пошаљи</button>
+        }
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success" style="margin-top: 15px;">
+                @ViewBag.Message
+            </div>
+        }
+
+    </div>
+</section>
+
+<script>
+        $(document).ready(function () {
+            if ('@ViewBag.Message' !== '') {
+                // Skroluj do forme
+                $('html, body').animate({
+                    scrollTop: $('#contactForm').offset().top
+                }, 500);
+            }
+        });
+</script>

@@ -1,0 +1,30 @@
+﻿@model GimnazijaKM.Models.Projekti
+
+@{
+    ViewBag.Title = "Обриши Пројекат";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Обриши Пројекат</h2>
+
+<div class="alert alert-warning">
+    Да ли сте сигурни да желите да обришете овај пројекат?
+</div>
+
+<table class="table table-bordered">
+    <tr><th>ID</th><td>@Model.Id</td></tr>
+    <tr><th>Текст 1</th><td>@Model.Tekst1</td></tr>
+    <tr><th>Текст 2</th><td>@Model.Tekst2</td></tr>
+    <tr><th>Текст 3</th><td>@Model.Tekst3</td></tr>
+    <tr><th>Текст 4</th><td>@Model.Tekst4</td></tr>
+    <tr><th>Текст 5</th><td>@Model.Tekst5</td></tr>
+</table>
+
+@using (Html.BeginForm("IzbrisiProjekat", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <button type="submit" class="btn btn-danger">Обриши</button>
+    @Html.ActionLink("Projekti","Projekti", "Home", null, new { @class = "btn btn-secondary ms-2" })
+}

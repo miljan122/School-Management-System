@@ -1,0 +1,306 @@
+﻿
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+
+    .grayscale-hover {
+        filter: grayscale(100%);
+        transition: filter 0.3s ease;
+    }
+
+        .grayscale-hover:hover {
+            filter: grayscale(0%);
+        }
+</style>
+
+
+
+<div id="gimSlider" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <img src="@(@Model.Slider?.Slika1 ?? "/Content/slike/default1.jpg")" class="d-block w-100" alt="..." style="object-fit: cover; height: 500px;">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                <h3 class="text-warning">Гимназија ИТ - Смер</h3>
+                <p>Где знање почиње и успех се гради.</p>
+                <a href="@Url.Action("ItUcenici", "Home")" class="btn btn-warning">Види Више</a>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+            <img src="@(@Model.Slider?.Slika2 ?? "/Content/slike/default2.jpg")" class="d-block w-100" alt="..." style="object-fit: cover; height: 500px;">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                <h3 class="text-warning">Гимназија Математички - Смер</h3>
+                <p>Традиционалне вредности и савремено образовање.</p>
+                <a href="@Url.Action("MatematickiSmer", "Home")" class="btn btn-warning">Види Више</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+            <img src="@(@Model.Slider?.Slika3 ?? "/Content/slike/default3.jpg")" class="d-block w-100" alt="..." style="object-fit: cover; height: 500px;">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                <h3 class="text-warning">Гимназија Језички - Смер</h3>
+                <p>Постани део успешне заједнице ученика и професора.</p>
+                <a href="@Url.Action("JezickiSmer", "Home")" class="btn btn-warning">Види Више</a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Prev/Next kontrole -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#gimSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" style="filter: invert(0%);" aria-hidden="true"></span>
+        <span class="visually-hidden">Prethodni</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#gimSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" style="filter: invert(0%);" aria-hidden="true"></span>
+        <span class="visually-hidden">Sledeći</span>
+    </button>
+</div>
+<hr />
+<!-- LAST NEWS -->
+@{
+    int ukupanBrojVesti = Model.Vesti.Count;
+    int ukupanBrojDogadjaja = Model.Events.Count;
+}
+
+<section class="container py-5">
+    <h2 class="text-center mb-4" style="color: #ffaa00; text-shadow: 3px 3px 6px rgba(0, 0, 50, 0.8); font-weight: bold; font-size: 2.5rem;">
+        Последње вести
+    </h2>
+
+    <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            @{
+                bool firstSlide = true;
+                for (int i = 0; i < ukupanBrojVesti; i += 3)
+                {
+                    <div class="carousel-item @(firstSlide ? "active" : "")">
+                        <div class="row justify-content-center">
+                            @for (int j = i; j < i + 3 && j < ukupanBrojVesti; j++)
+                            {
+                                var vest = Model.Vesti[j];
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100 shadow-sm">
+                                        <img src="@vest.Slika1" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Vest">
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title">@vest.Naslov</h5>
+                                            <p class="card-text">@vest.KratakOpis</p>
+                                            <a href="@Url.Action("Detalji", "Home", new { id = vest.Id })" class="btn btn-warning mt-auto">
+                                                Види више
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    firstSlide = false;
+                }
+            }
+        </div>
+
+        <!-- Kontrole -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Претходни</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            <span class="visually-hidden">Следећи</span>
+        </button>
+
+        <!-- Tачкице -->
+        <div class="carousel-indicators mt-3">
+            @{
+                int brojTacaka = (int)Math.Ceiling((double)ukupanBrojVesti / 3);
+                for (int k = 0; k < brojTacaka; k++)
+                {
+                    <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="@k"
+                            class="@(k == 0 ? "active bg-dark" : "bg-dark")"
+                            aria-current="@(k == 0 ? "true" : null)"
+                            aria-label="Слајд @(k + 1)"></button>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+
+<hr />
+
+<!-- COMING EVENTS -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #ffaa00; text-shadow: 3px 3px 6px rgba(0, 0, 50, 0.8); font-weight: bold; font-size: 2.5rem;">
+            Предстојећи догађаји
+        </h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                    @foreach (var dogadjaj in Model.Events)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>
+                                <strong>@dogadjaj.Ime</strong> – <strong>  @dogadjaj.Datum </strong>
+                            </span>
+                            <a href="@Url.Action("DetaljiDogadjaja", "Home", new { id = dogadjaj.Id })" class="btn btn-sm btn-outline-primary">Детаљи</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- NAŠI PROFESORI -->
+<section class="container py-5">
+    <h2 class="text-center mb-4" style="color: #ffaa00; text-shadow: 3px 3px 6px rgba(0, 0, 50, 0.8); font-weight: bold; font-size: 2.5rem;">
+        Захваљујемо се на сарадњи
+    </h2>
+    <p class="text-center mb-5 text-muted" style="font-size: 1.1rem;">
+        Поносни смо на партнерство са водећим компанијама које подржавају образовање и развој младих.
+    </p>
+
+    <div class="row g-4 justify-content-center align-items-center">
+        <!-- Лого 1 -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center">
+            <a href="https://www.kosovskamitrovica.rs" target="_blank">
+                <img src="/Content/slike/GRB-KOSOVSKE-MITROVICE-VELIKI-BOJA (1).jpg" alt="Партнер 1" class="img-fluid grayscale-hover" style="max-height: 100px;">
+            </a>
+        </div>
+        <!-- Лого 2 -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center">
+            <a href="https://www.edtech.center" target="_blank">
+                <img src="@Url.Content("~/Content/slike/edtech-partneri-logo-mp-350x175.png")"
+                     alt="Партнер 2" class="img-fluid grayscale-hover" style="max-height: 100px;">
+            </a>
+        </div>
+
+        <!-- Лого 3 -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center">
+            <a href="https://www.oracle.com" target="_blank">
+                <img src="/Content/slike/oracle-logo-01.png" alt="Партнер 3" class="img-fluid grayscale-hover" style="max-height: 100px;">
+            </a>
+        </div>
+        <!-- Лого 4 -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center">
+            <a href="https://www.microsoft.com" target="_blank">
+                <img src="/Content/slike/png-transparent-microsoft-logo-microsoft-thumbnail.png" alt="Партнер 4" class="img-fluid grayscale-hover" style="max-height: 100px;">
+            </a>
+        </div>
+        <!-- Лого 5 -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center">
+            <a href="https://www.srbija.gov.rs" target="_blank">
+                <img src="/Content/slike/Vlada_Srbije_logo.png" alt="Партнер 5" class="img-fluid grayscale-hover" style="max-height: 100px;">
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- VIDEO SEKCIJA -->
+<section class="container py-5">
+    <div class="row align-items-center">
+        <!-- YouTube видео -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="ratio ratio-16x9 rounded shadow">
+                <iframe src="https://www.youtube.com/embed/15weTgg7Szw?list=PLkQd0pUowmF1eL-k8H_KP6djjkSATpSr6"
+                        title="Школски видео"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Текст поред видеа -->
+        <div class="col-md-6">
+            <h3 class="mb-3" style="color: #ffaa00; text-shadow: 3px 3px 6px rgba(0, 0, 50, 0.8); font-weight: bold;">
+                Погледајте атмосферу из наше школе
+            </h3>
+            <p class="text-muted fs-5">Видео приказује креативне активности, пројекте и догађаје који се организују у нашој школи. Поносно делимо наше успехе са вама!</p>
+            <a href="https://www.youtube.com/playlist?list=PLkQd0pUowmF1eL-k8H_KP6djjkSATpSr6" target="_blank" class="btn btn-warning mt-2">Погледај целу плејлисту</a>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 class="text-center mb-5" style="color: #ffaa00; text-shadow: 3px 3px 6px rgba(0, 0, 50, 0.8);">Зашто баш нас?</h2>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="nav flex-column nav-pills me-3" id="v-tabs" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active text-start" id="tab1-tab" data-bs-toggle="pill" data-bs-target="#tab1" type="button" role="tab">
+                    <i class="bi bi-mortarboard-fill me-2 text-warning"></i> Квалитетно образовање
+                </button>
+                <button class="nav-link text-start" id="tab2-tab" data-bs-toggle="pill" data-bs-target="#tab2" type="button" role="tab">
+                    <i class="bi bi-pc-display-horizontal me-2 text-warning"></i> Савремена опрема
+                </button>
+                <button class="nav-link text-start" id="tab3-tab" data-bs-toggle="pill" data-bs-target="#tab3" type="button" role="tab">
+                    <i class="bi bi-people-fill me-2 text-warning"></i> Пријатељско окружење
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="tab-content" id="v-tabsContent">
+                <!-- Tab 1 -->
+                <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img src="/Content/slike/1000_F_237983361_W2TdPAaDVbrtlDj8ces0OD2XBP8VdDE0.jpg" class="img-fluid rounded shadow" alt="Образовање">
+
+
+
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <h4 class="text-primary">Квалитетно образовање</h4>
+                            <p>Наша школа пружа висок квалитет образовања са фокусом на савремене наставне методе и стручан кадар.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tab 2 -->
+                <div class="tab-pane fade" id="tab2" role="tabpanel">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img src="/Content/slike/320.jpg" class="img-fluid rounded shadow" alt="Савремена опрема">
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <h4 class="text-primary">Савремена опрема</h4>
+                            <p>Располажемо модерним учионицама и опремом која омогућава интерактивну и дигиталну наставу.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tab 3 -->
+                <div class="tab-pane fade" id="tab3" role="tabpanel">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img src="/Content/slike/workplace.jpg" class="img-fluid rounded shadow" alt="Заједништво">
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <h4 class="text-primary">Пријатељско окружење</h4>
+                            <p>Подстичемо сарадњу, тимски дух и међусобно поштовање како бисмо створили инспиративно окружење.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

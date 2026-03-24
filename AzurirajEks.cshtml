@@ -1,0 +1,44 @@
+﻿@model GimnazijaKM.Models.Ekskurzije
+@{
+    ViewBag.Title = "Ажурирај Екскурзију";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Ажурирање екскурзије</h2>
+
+    @using (Html.BeginForm("AzurirajEks", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label>Наслов</label>
+            <input type="text" name="Naslov" value="@Model.Naslov" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Опис</label>
+            <textarea name="Opis" class="form-control" rows="3" required>@Model.Opis</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Промени слике (остави празno ако не мењаш):</label>
+            @for (int i = 1; i <= 8; i++)
+            {
+                var slikaUrl = typeof(GimnazijaKM.Models.Ekskurzije).GetProperty("Slika" + i).GetValue(Model) as string;
+                if (!string.IsNullOrEmpty(slikaUrl))
+                {
+                    <div class="my-2">
+                        <img src="@Url.Content(slikaUrl)" class="img-thumbnail" style="height: 80px;" />
+                    </div>
+                }
+                <input type="file" name="slike" class="form-control my-1" />
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Сачувај промене</button>
+        <a href="@Url.Action( "DodajEkskurziju", "Home")" class="btn btn-secondary mt-3">Назад</a>
+    }
+
+
+</div>

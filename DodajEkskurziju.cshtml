@@ -1,0 +1,86 @@
+﻿
+@model IEnumerable<GimnazijaKM.Models.Ekskurzije>
+@{
+    ViewBag.Title = "Додај Екскурзију";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Додај нову екскурзију</h2>
+
+    @using (Html.BeginForm("DodajEkskurziju", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            <label>Наслов</label>
+            <input type="text" name="Naslov" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Опис</label>
+            <textarea name="Opis" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Изабери до 8 слика:</label>
+            @for (int i = 1; i <= 8; i++)
+            {
+                <input type="file" name="slike" class="form-control my-1" accept="image/*" />
+            }
+        </div>
+
+        <button type="submit" class="btn btn-warning mt-3">Сачувај</button>
+    }
+
+    <hr />
+
+    <h3 class="mt-4">Постојеће екскурзије</h3>
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Наслов</th>
+                <th>Опис</th>
+                <th>Слике</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Naslov</td>
+                    <td>@item.Opis</td>
+                    <td>
+                        <div class="d-flex flex-wrap">
+                            @for (int i = 1; i <= 8; i++)
+                            {
+                                var slikaUrl = typeof(GimnazijaKM.Models.Ekskurzije).GetProperty("Slika" + i).GetValue(item) as string;
+                                if (!string.IsNullOrEmpty(slikaUrl))
+                                {
+                                    <img src="@Url.Content(slikaUrl)" class="img-thumbnail m-1" style="height: 100px;" />
+                                }
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("AzurirajEks", "Home", new { id = item.Id })" class="btn btn-sm btn-info">Измени</a>
+                        <a href="@Url.Action("IzbrisiEks", "Home", new { id = item.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Да ли сте сигурни да желите да обришете ову екскурзију?')">Обриши</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

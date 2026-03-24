@@ -1,0 +1,170 @@
+﻿@model GimnazijaKM.Models.Ekskurzije
+
+@{
+    ViewBag.Title = "Детаљи екскурзије";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .gallery-flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .gallery-item {
+        flex: 1 1 280px; /* веће слике */
+        max-width: 320px;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+        background-color: white;
+        position: relative;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: transform 0.4s ease;
+        display: block;
+    }
+
+    .gallery-item:hover {
+        box-shadow: 0 14px 45px rgba(13, 110, 253, 0.7);
+        z-index: 10;
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+
+    /* Модал (lightbox) стилови */
+    #modalOverlay {
+        display: none; /* кријемо га */
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 1050;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #modalOverlay.active {
+        display: flex;
+    }
+
+    #modalOverlay img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 15px;
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+    }
+
+    #modalOverlay .close-btn {
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        font-size: 2.5rem;
+        color: white;
+        cursor: pointer;
+        user-select: none;
+        font-weight: 700;
+        z-index: 1060;
+        transition: color 0.3s ease;
+    }
+
+    #modalOverlay .close-btn:hover {
+        color: #0d6efd;
+    }
+
+    @@media (max-width: 575.98px) {
+        .gallery-item {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+
+        .gallery-item img {
+            height: auto;
+        }
+    }
+</style>
+
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary">@Model.Naslov</h1>
+        <p class="lead text-secondary">@Model.Opis</p>
+    </div>
+
+    <div class="section-header mb-4" style="border-left: 5px solid #0d6efd; padding-left: 15px; font-weight: 700; font-size: 2rem; color: #0d6efd;">
+        📸 Галерија са путовања
+    </div>
+
+    <div class="gallery-flex">
+        @for (int i = 1; i <= 8; i++)
+        {
+            var slika = typeof(GimnazijaKM.Models.Ekskurzije).GetProperty("Slika" + i)?.GetValue(Model) as string;
+            if (!string.IsNullOrEmpty(slika))
+            {
+                <div class="gallery-item" data-full="@Url.Content(slika)">
+                    <img src="@Url.Content(slika)" alt="Слика @i" loading="lazy" />
+                </div>
+            }
+        }
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="@Url.Action("Ekskurzija", "Home")" class="btn btn-outline-primary btn-lg btn-back">
+            ⬅ Назад на све екскурзије
+        </a>
+    </div>
+</div>
+
+<!-- Модални overlay -->
+<div id="modalOverlay">
+    <span class="close-btn">&times;</span>
+    <img src="" alt="Преглед слике" />
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById('modalOverlay');
+        const modalImg = modal.querySelector('img');
+        const closeBtn = modal.querySelector('.close-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const fullSrc = item.getAttribute('data-full');
+                modalImg.src = fullSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // спречава скрол док је модал отворен
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modalImg.src = '';
+            document.body.style.overflow = '';
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // ESC тастер затвара модал
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    });
+</script>
